@@ -1,4 +1,8 @@
-local t = Def.ActorFrame{
+local Players = GAMESTATE:GetHumanPlayers()
+local t = Def.ActorFrame{ Name="GameplayUnderlay" }
+
+
+t[#t+1] = Def.ActorFrame{
 	LoadActor("ScreenFilter");
 	LoadActor("beginner")..{
 		InitCommand=function(self)
@@ -17,5 +21,9 @@ local t = Def.ActorFrame{
 	LoadActor("danger");
 	LoadActor("dead");
 };
+
+for player in ivalues(Players) do
+	t[#t+1] = LoadActor("score", player)
+end
 
 return t;
